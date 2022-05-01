@@ -1,7 +1,8 @@
 import torch
+import uvicorn
 from PIL import Image
 from torchvision import models
-from backend.transform_utils import transform
+from transform_utils import transform
 from fastapi import FastAPI, File, UploadFile
 
 app = FastAPI()
@@ -25,7 +26,7 @@ async def predict(image_c: UploadFile=File(...)):
     # load the image, pre-process it, and make predictions
     batch_t = torch.unsqueeze(transform(img), 0)
     out = model(batch_t)
-    with open('backend/imagenet_classes.txt') as f:
+    with open('imagenet_classes.txt') as f:
         classes = [line.strip() for line in f.readlines()]
 
     # return the top 5 predictions ranked by highest probabilities
@@ -34,3 +35,6 @@ async def predict(image_c: UploadFile=File(...)):
     return {
         "labels":[(classes[idx], prob[idx].item()) for idx in indices[0][:5]]
     }
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000)

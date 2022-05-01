@@ -1,0 +1,5 @@
+click==7.1.2
+streamlit
+Pillow==8.0.1
+requests_futures
+python-multipart

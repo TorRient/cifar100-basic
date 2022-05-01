@@ -24,7 +24,7 @@ if file_up is not None:
     st.write("")
     st.write("Just a second ...")
     r = session.post(
-        f"http://0.0.0.0:8000/predict",
+        f"http://backend:8000/predict",
         files={
             'image_c': ('file_c.PNG', mem_file_c, 'image/png')
         }
