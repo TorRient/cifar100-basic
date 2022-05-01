@@ -12,7 +12,7 @@ st.title("Simple Image Classification Application")
 st.write("")
 
 # enable users to upload images for the model to make predictions
-file_up = st.file_uploader("Upload an image", type = "jpg")
+file_up = st.file_uploader("Upload an image", type = ['png', 'jpg', "jpeg", "PNG", "JPG"])
 
 if file_up is not None:
     # display image that user uploaded

@@ -7,8 +7,8 @@ from fastapi import FastAPI, File, UploadFile
 app = FastAPI()
 
 # create a ResNet model
-resnet = models.resnet101(pretrained = True)
-resnet.eval()
+model = torch.hub.load("chenyaofo/pytorch-cifar-models", "cifar100_mobilenetv2_x1_4", pretrained=True)
+model.eval()
 
 @app.post('/predict')
 async def predict(image_c: UploadFile=File(...)):
@@ -24,7 +24,7 @@ async def predict(image_c: UploadFile=File(...)):
     img = Image.open(image_c.file).convert('RGB')
     # load the image, pre-process it, and make predictions
     batch_t = torch.unsqueeze(transform(img), 0)
-    out = resnet(batch_t)
+    out = model(batch_t)
     with open('backend/imagenet_classes.txt') as f:
         classes = [line.strip() for line in f.readlines()]
 
