@@ -1,5 +1,6 @@
 """Create an Image Classification Web App using PyTorch and Streamlit."""
 # import libraries
+import os
 from PIL import Image
 from io import BytesIO
 import streamlit as st
@@ -14,6 +15,11 @@ st.write("")
 # enable users to upload images for the model to make predictions
 file_up = st.file_uploader("Upload an image", type = ['png', 'jpg', "jpeg", "PNG", "JPG"])
 
+if os.getenv("HOST_SERVICE") is None:
+    HOST_SERVICE = 'backend'
+else:
+    HOST_SERVICE = os.getenv("HOST_SERVICE")
+
 if file_up is not None:
     # display image that user uploaded
     image = Image.open(file_up)
@@ -24,7 +30,7 @@ if file_up is not None:
     st.write("")
     st.write("Just a second ...")
     r = session.post(
-        f"http://backend:8000/predict",
+        f"http://{HOST_SERVICE}:8000/predict",
         files={
             'image_c': ('file_c.PNG', mem_file_c, 'image/png')
         }

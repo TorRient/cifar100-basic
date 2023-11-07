@@ -11,4 +11,4 @@ COPY . /app
 EXPOSE 8501
 
 ENTRYPOINT ["streamlit","run"]
-CMD ["streamlit_ui.py"]
+CMD ["streamlit_ui.py", "--browser.gatherUsageStats", "False", "--server.fileWatcherType", "none"]
