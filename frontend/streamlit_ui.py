@@ -8,8 +8,9 @@ from requests_futures.sessions import FuturesSession
 
 session = FuturesSession()
 
+VERSION = "v1"
 # set title of app
-st.title("Simple Image Classification Application")
+st.title(f"Simple Image Classification Application - {VERSION}")
 st.write("")
 
 # enable users to upload images for the model to make predictions
