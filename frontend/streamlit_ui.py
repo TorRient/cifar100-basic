@@ -8,7 +8,7 @@ from requests_futures.sessions import FuturesSession
 
 session = FuturesSession()
 
-VERSION = "v2"
+VERSION = "v1"
 # set title of app
 st.title(f"Simple Image Classification Application - {VERSION}")
 st.write("")
